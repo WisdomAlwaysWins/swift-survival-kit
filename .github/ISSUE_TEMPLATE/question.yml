@@ -1,0 +1,47 @@
+name: "❓ 질문 / 의문점"
+description: "학습 중 생긴 궁금증이나 막힌 부분을 기록합니다."
+title: "[Q] "
+labels: ["question"]
+body:
+  - type: dropdown
+    id: category
+    attributes:
+      label: "📂 관련 주제"
+      description: "질문과 관련된 주제를 선택하세요."
+      options:
+        - OS
+        - Swift
+        - UIKit
+        - SwiftUI
+        - Concurrency
+        - Architecture Pattern
+        - Combine
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: "❓ 질문"
+      description: "궁금한 점을 구체적으로 적어주세요."
+      placeholder: "예: @MainActor를 붙이면 항상 메인 스레드에서 실행되는 건가?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: "🧩 맥락"
+      description: "어떤 상황에서 이 의문이 생겼는지 적어주세요."
+      placeholder: "관련 이슈 번호, 코드 스니펫, 공부하다가 헷갈린 부분 등"
+    validations:
+      required: false
+
+  - type: textarea
+    id: answer
+    attributes:
+      label: "💡 답변 (해결 후 작성)"
+      description: "답을 찾으면 여기에 정리하세요."
+      placeholder: "학습 후 작성"
+    validations:
+      required: false

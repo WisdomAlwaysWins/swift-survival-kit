@@ -1,0 +1,44 @@
+name: "💙 SwiftUI"
+description: "View, State, Binding, 선언적 UI 등을 공부합니다."
+title: "[SwiftUI] "
+labels: ["study", "swiftui"]
+body:
+  - type: input
+    id: topic
+    attributes:
+      label: "📌 학습 주제"
+      description: "공부할 구체적인 주제를 적어주세요."
+      placeholder: "예: @State vs @Binding 차이"
+    validations:
+      required: true
+
+  - type: textarea
+    id: goal
+    attributes:
+      label: "🎯 학습 목표"
+      description: "이 주제를 통해 알고 싶은 것, 해결하고 싶은 궁금증을 적어주세요."
+      placeholder: |
+        - 이 개념이 왜 필요한지 이해하기
+        - 실제 코드에서 어떻게 쓰이는지 파악하기
+    validations:
+      required: true
+
+  - type: textarea
+    id: references
+    attributes:
+      label: "🔗 참고 자료"
+      description: "참고할 문서, 영상, 블로그 등이 있다면 링크를 남겨주세요."
+      placeholder: |
+        - https://developer.apple.com/...
+        - WWDC 20XX - ...
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "✅ 완료 체크리스트"
+      options:
+        - label: 개념 학습 완료
+        - label: 옵시디언 노트 정리 완료
+        - label: 예제 코드 작성 완료
