@@ -119,6 +119,11 @@ print(Season.allCases.count) // 4
 
 #### 1.5 API EndPoint 관리
 
+1. 타입 안전: 오타 방지 (문자열 "/users" 같은 실수 없음)
+2. 자동 완성: Xcode에서 .userList, .userDetail 등 바로 뜸
+3. 한 곳에서 수정: 경로가 바뀌면 enum만 수정
+4. Associated Value: id, query 같은 파라미터를 타입 안전하게 전달
+
 ```swift
 enum ShopAPI {
 	case productList(page: Int)
@@ -154,6 +159,62 @@ print(api.method) // "GET"
 열거형은 값 타입이므로 일반적으로 Stack에 저장된다.
 
 ![[메모리-열거형.png]]
+
+---
+## 3. indirect enum (재귀 열거형)
+
+indirect는 열거형의 연관값에 자기 자신 타입을 넣을 수 있게 하는 키워드다. 트리 구조 같은 재귀적 데이터를 표현할 때 사용한다. 내부적으로 해당 케이스를 Heap에 저장하여 무한 크기 문제를 해결한다.
+
+enum은 값 타입이라 크기가 컴파일 타입에 확정되어야한다. 자기 자신을 포함하면 크기가 무한 확장되므로 불가능하다! `indirect` 를 붙이면 해당 케이스를 **Heap에 저장(포인터 참조)** 하여 크기가 확정된다.
+
+```swift
+// 이진 트리 표현
+indirect enum BinaryNode {
+	case leaf(Int)
+	case node(left: BinaryNode, value: Int, right: BinaryNode)
+}
+
+let tree = BinaryNode.node(
+	left: .heaf(1),
+	value: 2,
+	right: .node(
+		left: .leaf(3),
+		value: 4,
+		right: .leaf(5)
+	)
+)
+
+//        2 
+//       / \ 
+//      1   4
+//         / \ 
+//        3   5
+```
+
+```swift
+// 산술 표현식
+indirect enum ArithExpr {
+	case number(Int)
+	case add(ArithExpr, ArithExpr)
+	case multiply(ArithExpr, ArithExpr)
+}
+
+// (2 + 3) * 4
+let expr = ArithExpr.multiply(
+	.add(.number(2), .number(3)),
+	.number(4)
+)
+
+func evaluate(_ expr: ArithExpr) -> Int {
+	switch expr {
+	case .number(let n): return n
+	case .add(let l, let r): return evaluate(l) + evaluate(r)
+	case .multiply(let l, let r): return evaluate(l) * evaluate(r)
+	}
+}
+
+print(evaluate(expr)) // 20
+```
 
 ---
 ## ❓ 스스로에게 물어봐
